@@ -1,0 +1,402 @@
+/* ==========================================================================
+   SCENE 1: LUXURY MILK GLASS QUESTION CARD & STICKER
+   ========================================================================== */
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid var(--card-border);
+  border-radius: 32px;
+  box-shadow: var(--card-shadow);
+  padding: 38px 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+/* Subtle Gold Foil Top Border Accent */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: var(--gold-gradient);
+  opacity: 0.9;
+}
+
+/* Step container */
+.step-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.step-container.hidden {
+  display: none !important;
+}
+
+/* Luxury Capsule Badge */
+.badge-caps {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 9999px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #8C6A15;
+  font-family: var(--font-sans-modern);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+}
+
+.badge-caps i {
+  color: var(--primary-gold-dark);
+}
+
+/* Question Title */
+.question-title {
+  font-family: var(--font-serif-luxury);
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--navy-dark);
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.question-title .highlight-gold {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 800;
+}
+
+.question-subtitle {
+  font-family: var(--font-sans-modern);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+
+/* Dynamic Reaction / Hint Text */
+.hint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: rgba(254, 226, 226, 0.75);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #991B1B;
+  font-family: var(--font-sans-modern);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.45;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08);
+}
+
+.hint-badge.hidden {
+  display: none !important;
+}
+
+/* Buttons Area */
+.options-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  position: relative;
+  min-height: 64px;
+  margin-top: 6px;
+}
+
+/* Base button style */
+.btn-choice {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: var(--font-sans-modern);
+  font-weight: 600;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Yes Button - Luxury Gold Foil */
+.btn-yes {
+  background: var(--gold-gradient);
+  color: #1A1407;
+  font-size: 0.98rem;
+  padding: 14px 18px;
+  box-shadow: 0 10px 24px -4px rgba(212, 175, 55, 0.45),
+              0 0 15px rgba(245, 215, 127, 0.35);
+  transform-origin: center center;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.btn-yes::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: rotate(25deg);
+  pointer-events: none;
+  animation: goldShimmer 4s infinite ease-in-out;
+}
+
+@keyframes goldShimmer {
+  0% { left: -60%; }
+  35%, 100% { left: 160%; }
+}
+
+/* No Button - Porcelain Milk Glass */
+.btn-no {
+  background: rgba(255, 255, 255, 0.75);
+  color: #475569;
+  border: 1px solid rgba(30, 58, 138, 0.15);
+  font-size: 0.94rem;
+  padding: 14px 14px;
+  transform-origin: center center;
+  z-index: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.btn-no:hover {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1E293B;
+  border-color: rgba(30, 58, 138, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+}
+
+/* ==========================================================================
+   DECLINED STEP: Sad Sticker & Warm Letterbox
+   ========================================================================== */
+.sticker-box {
+  position: relative;
+  width: 170px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  transform-origin: center center;
+}
+
+.sticker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgba(30, 58, 138, 0.18))
+          drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.sticker-halo {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, rgba(212, 175, 55, 0.15) 60%, transparent 80%);
+  filter: blur(20px);
+  z-index: -1;
+}
+
+.declined-title {
+  font-family: var(--font-serif-luxury);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 12px;
+}
+
+.declined-letter {
+  background: rgba(255, 253, 248, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 20px 22px;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  color: #334155;
+  text-align: justify;
+  margin-bottom: 26px;
+  position: relative;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.04);
+}
+
+.declined-letter::before {
+  content: "“";
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-family: var(--font-serif-luxury);
+  font-size: 2.5rem;
+  color: rgba(212, 175, 55, 0.35);
+  line-height: 1;
+}
+
+.declined-letter p {
+  position: relative;
+  z-index: 1;
+}
+
+.declined-letter .highlight-wish {
+  color: #B45309;
+  font-weight: 600;
+}
+
+.btn-view-anyway {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--navy-primary);
+  border: 1.5px solid var(--primary-gold);
+  font-family: var(--font-sans-modern);
+  font-size: 0.96rem;
+  padding: 14px 26px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+  transition: all 0.3s ease;
+}
+
+.btn-view-anyway:hover {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-color: var(--navy-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.22);
+}
+
+/* ==========================================================================
+   ACCEPTED STEP: Celebration Card
+   ========================================================================== */
+.celebration-icon-box {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #1A1407;
+  margin-bottom: 22px;
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+}
+
+.accepted-title {
+  font-family: var(--font-serif-luxury);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 12px;
+}
+
+.accepted-subtitle {
+  font-family: var(--font-sans-modern);
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  max-width: 420px;
+}
+
+.btn-open-invitation {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  font-family: var(--font-sans-modern);
+  font-size: 1.05rem;
+  padding: 16px 32px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px -4px rgba(30, 58, 138, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-open-invitation:hover {
+  background: #172554;
+  box-shadow: 0 16px 34px -4px rgba(30, 58, 138, 0.45);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .glass-card {
+    padding: 30px 18px;
+    border-radius: 26px;
+  }
+
+  .question-title {
+    font-size: 1.45rem;
+  }
+
+  .question-subtitle {
+    font-size: 0.92rem;
+    margin-bottom: 22px;
+  }
+
+  .options-wrapper {
+    gap: 10px;
+  }
+
+  .btn-yes {
+    font-size: 0.88rem;
+    padding: 13px 8px;
+    gap: 5px;
+  }
+
+  .btn-no {
+    font-size: 0.85rem;
+    padding: 13px 8px;
+    gap: 5px;
+  }
+
+  .sticker-box {
+    width: 140px;
+    height: 180px;
+    margin-bottom: 18px;
+  }
+
+  .declined-title {
+    font-size: 1.35rem;
+  }
+
+  .declined-letter {
+    font-size: 0.88rem;
+    padding: 16px 16px;
+  }
+}

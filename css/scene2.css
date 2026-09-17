@@ -1,0 +1,202 @@
+/* ==========================================================================
+   SCENE 2: LUXURY EDITORIAL GRADUATION CARD (Thiệp chính thức)
+   ========================================================================== */
+
+#scene-invitation {
+  max-width: 580px;
+}
+
+.invitation-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1.5px solid var(--primary-gold);
+  border-radius: 36px;
+  padding: 44px 34px;
+  text-align: center;
+  box-shadow: 0 30px 70px -15px rgba(30, 58, 138, 0.18),
+              0 0 45px rgba(212, 175, 55, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Luxury Corner Ornaments */
+.invitation-card::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+.invitation-header-badge {
+  display: inline-block;
+  font-family: var(--font-serif-luxury);
+  font-size: 0.88rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--primary-gold-dark);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.invitation-main-title {
+  font-family: var(--font-serif-luxury);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.invitation-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 18px auto 26px;
+}
+
+.divider-line {
+  width: 50px;
+  height: 1px;
+  background: var(--primary-gold);
+}
+
+.divider-icon {
+  color: var(--primary-gold);
+  font-size: 0.9rem;
+}
+
+.invitation-to-text {
+  color: var(--text-muted);
+  font-family: var(--font-sans-modern);
+  font-size: 0.96rem;
+  margin-bottom: 8px;
+}
+
+.graduate-name {
+  font-family: var(--font-serif-luxury);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--navy-dark);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #1E3A8A 0%, #D4AF37 55%, #1E3A8A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.graduate-major {
+  font-family: var(--font-sans-modern);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-gold-dark);
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.detail-item {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.detail-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 58, 138, 0.08);
+}
+
+.detail-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--primary-gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.detail-info h4 {
+  font-family: var(--font-sans-modern);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+
+.detail-info p {
+  font-family: var(--font-sans-modern);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+}
+
+.invitation-quote {
+  font-family: var(--font-serif-luxury);
+  color: #475569;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.btn-back-intro {
+  background: none;
+  border: 1px solid rgba(30, 58, 138, 0.2);
+  color: var(--navy-primary);
+  padding: 11px 22px;
+  border-radius: 16px;
+  font-family: var(--font-sans-modern);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 10px;
+}
+
+.btn-back-intro:hover {
+  color: var(--navy-dark);
+  border-color: var(--navy-primary);
+  background: rgba(30, 58, 138, 0.06);
+}
+
+@media (max-width: 480px) {
+  .invitation-card {
+    padding: 34px 20px;
+    border-radius: 28px;
+  }
+
+  .invitation-main-title {
+    font-size: 1.9rem;
+  }
+
+  .graduate-name {
+    font-size: 1.75rem;
+  }
+}

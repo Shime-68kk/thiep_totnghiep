@@ -1,0 +1,50 @@
+/* ==========================================================================
+   CSS VARIABLES & DESIGN TOKENS (LIGHT LUXURY EDITORIAL SYSTEM)
+   Art Direction: Ivory / Champagne Warm White + Royal Navy + Soft Warm Gold
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Brand Luxury Gold Palette */
+  --primary-gold: #D4AF37;
+  --primary-gold-light: #F7E7BA;
+  --primary-gold-dark: #997418;
+  --gold-gradient: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #B88924 100%);
+  --gold-gradient-soft: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+  --gold-glow: rgba(212, 175, 55, 0.28);
+  --gold-foil-shine: linear-gradient(90deg, #D4AF37 0%, #FFF4D0 45%, #D4AF37 60%, #997418 100%);
+
+  /* Royal Navy & Slate */
+  --navy-primary: #1E3A8A;
+  --navy-dark: #0F172A;
+  --navy-light: #3B82F6;
+  --navy-soft-bg: rgba(30, 58, 138, 0.06);
+
+  /* Ivory / Champagne Backgrounds */
+  --bg-champagne: #FAF7F2;
+  --bg-champagne-light: #FFFDF9;
+  --bg-champagne-dark: #F2ECE1;
+  --bg-mesh-1: rgba(254, 240, 199, 0.65);
+  --bg-mesh-2: rgba(224, 231, 255, 0.55);
+  --bg-mesh-3: rgba(254, 226, 226, 0.45);
+  
+  /* Milk Glassmorphism Tokens */
+  --card-bg: rgba(255, 255, 255, 0.82);
+  --card-border: rgba(255, 255, 255, 0.95);
+  --card-border-inner: rgba(212, 175, 55, 0.28);
+  --card-shadow: 0 25px 60px -15px rgba(30, 58, 138, 0.14),
+                 0 0 35px rgba(212, 175, 55, 0.12);
+  
+  /* Text & Typography Colors */
+  --text-main: #0F172A;
+  --text-heading: #1E3A8A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+
+  /* Typography Families */
+  --font-serif-luxury: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-serif-sub: 'Cormorant Garamond', Georgia, serif;
+  --font-sans-modern: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, sans-serif;
+  --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', sans-serif;
+}

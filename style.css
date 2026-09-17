@@ -1,0 +1,2 @@
+/* Master style entry point forwarding to modular css */
+@import url('./css/main.css');

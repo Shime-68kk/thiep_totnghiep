@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Thiệp Mời Tốt Nghiệp - Trần Tùng Lâm 🎓✨</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Modular Design System Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+
+  <!-- GSAP Core from Local Repository -->
+  <script src="js/vendor/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- Subtle Organic Noise Texture -->
+  <div class="grain-overlay"></div>
+
+  <!-- Organic Ambient Aurora Mesh Blobs -->
+  <div class="ambient-aurora ambient-aurora-1"></div>
+  <div class="ambient-aurora ambient-aurora-2"></div>
+  <div class="ambient-aurora ambient-aurora-3"></div>
+
+  <!-- Star sparkles background -->
+  <div class="particles-container" id="particles-container"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <main class="app-container">
+    
+    <!-- ===================================================================
+         SCENE 1: INTERACTIVE QUESTION MODAL (Cảnh 1: Lời Mời Tương Tác)
+         =================================================================== -->
+    <section class="scene" id="scene-intro">
+      <div class="glass-card" id="intro-card">
+        
+        <!-- STEP 1: CÂU HỎI MỜI DỰ LỄ TỐT NGHIỆP -->
+        <div class="step-container" id="step-question">
+          <div class="badge-caps">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Lời mời đặc biệt</span>
+          </div>
+
+          <h1 class="question-title">
+            Bạn có muốn đến dự <span class="highlight-gold">Lễ Tốt Nghiệp</span> cùng mình không? 🎓✨
+          </h1>
+
+          <p class="question-subtitle">
+            Cột mốc ý nghĩa đánh dấu ngày tốt nghiệp của mình, sự hiện diện và nụ cười của bạn là món quà quý giá nhất!
+          </p>
+
+          <!-- Phản hồi năng động khi bấm "Không" -->
+          <div class="hint-badge hidden" id="hint-text">
+            <i class="fa-solid fa-face-pleading"></i>
+            <span id="hint-message"></span>
+          </div>
+
+          <!-- 2 Nút Lựa Chọn -->
+          <div class="options-wrapper">
+            <button class="btn-choice btn-yes" id="btn-yes">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Có, mình muốn! 🥰🎓</span>
+            </button>
+            <button class="btn-choice btn-no" id="btn-no">
+              <i class="fa-solid fa-circle-xmark"></i>
+              <span>Không, mình bận rồi 🥺</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: TỪ CHỐI (KHI BẤM 'KHÔNG' ĐỦ 3 LẦN) -->
+        <div class="step-container hidden" id="step-declined">
+          <div class="sticker-box">
+            <div class="sticker-halo"></div>
+            <img src="assets/images/sticker_buon.png" alt="Sticker khuôn mặt buồn bã" class="sticker-img" />
+          </div>
+
+          <h2 class="declined-title">
+            Hơi tiếc một chút nhưng không sao nè... 🥺💙
+          </h2>
+
+          <div class="declined-letter">
+            <p>
+              Cảm ơn bạn rất nhiều vì đã ghé thăm và đọc tấm thiệp này! Dù bận việc không thể đến chung vui trong buổi lễ tốt nghiệp, sự quan tâm và những lời chúc tốt lành của bạn luôn có ý nghĩa vô cùng to lớn đối với mình.
+              <br /><br />
+              Chúc bạn luôn bình an, ngập tràn niềm vui và gặt hái thật nhiều thành công rực rỡ trên những chặng đường sắp tới nhé!
+              <span class="highlight-wish">Hy vọng chúng mình sẽ sớm có dịp gặp lại nhau! ✨🍀</span>
+            </p>
+          </div>
+
+          <button class="btn-view-anyway" id="btn-view-anyway">
+            <i class="fa-solid fa-scroll"></i>
+            <span>Dù sao thì vẫn muốn xem thiệp nè 🎓📜</span>
+          </button>
+        </div>
+
+        <!-- STEP 3: ĐỒNG Ý (KHI BẤM 'CÓ') -->
+        <div class="step-container hidden" id="step-accepted">
+          <div class="celebration-icon-box">
+            <i class="fa-solid fa-award"></i>
+          </div>
+
+          <h2 class="accepted-title">
+            Tuyệt vời quá! Mình biết bạn sẽ đến mà! 🎓🎉
+          </h2>
+
+          <p class="accepted-subtitle">
+            Cảm ơn bạn rất nhiều! Sự hiện diện của bạn chính là niềm vinh dự và kỷ niệm đẹp nhất đối với mình trong ngày tốt nghiệp. Cùng mở thiệp để xem chi tiết thời gian và địa điểm nhé! 💕✨
+          </p>
+
+          <button class="btn-open-invitation" id="btn-open-invitation">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            <span>Mở xem thiệp mời ngay 💌✨</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SCENE 2: FORMAL GRADUATION INVITATION CARD (Cảnh 2: Thiệp chính thức)
+         =================================================================== -->
+    <section class="scene hidden" id="scene-invitation">
+      <div class="invitation-card">
+        <span class="invitation-header-badge">✦ GRADUATION CEREMONY ✦</span>
+        <h2 class="invitation-main-title">THIỆP MỜI TỐT NGHIỆP</h2>
+        
+        <div class="invitation-divider">
+          <span class="divider-line"></span>
+          <i class="fa-solid fa-graduation-cap divider-icon"></i>
+          <span class="divider-line"></span>
+        </div>
+
+        <p class="invitation-to-text">Trân trọng kính mời bạn đến tham dự lễ tốt nghiệp của:</p>
+        <h3 class="graduate-name">TRẦN TÙNG LÂM</h3>
+        <p class="graduate-major">Tân Cử Nhân / Kỹ Sư 🎓</p>
+
+        <div class="details-grid">
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-regular fa-calendar-check"></i></div>
+            <div class="detail-info">
+              <h4>Thời gian</h4>
+              <p>08:30 - Thứ Bảy, Ngày 18 Tháng 10</p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="detail-info">
+              <h4>Địa điểm</h4>
+              <p>Hội trường lớn - Giảng đường trung tâm</p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon"><i class="fa-solid fa-camera-retro"></i></div>
+            <div class="detail-info">
+              <h4>Chụp ảnh lưu niệm</h4>
+              <p>Khuôn viên trường & Backdrop tốt nghiệp</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="invitation-quote">
+          "Rất mong được đón tiếp và lưu lại những khoảnh khắc đáng nhớ cùng bạn trong ngày trọng đại này!"
+        </p>
+
+        <button class="btn-back-intro" id="btn-back-intro">
+          <i class="fa-solid fa-rotate-left"></i> Trở về màn hình tương tác
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modular Application Entry Point -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
