@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCENE 2: LUXURY EDITORIAL GRADUATION CARD (Thiệp chính thức)
+   SCENE 2: LUXURY EDITORIAL GRADUATION CARD (HIGH CONTRAST & CARD DEPTH)
    ========================================================================== */
 
 #scene-invitation {
@@ -10,14 +10,17 @@
   background: var(--card-bg);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1.5px solid var(--primary-gold);
+  border: 1.5px solid var(--gold-deep-bronze);
   border-radius: 36px;
   padding: 44px 34px;
   text-align: center;
   box-shadow: 0 30px 70px -15px rgba(30, 58, 138, 0.18),
-              0 0 45px rgba(212, 175, 55, 0.16);
+              0 0 40px rgba(154, 107, 31, 0.12);
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: box-shadow 0.35s ease;
 }
 
 /* Luxury Corner Ornaments */
@@ -28,7 +31,7 @@
   left: 14px;
   right: 14px;
   bottom: 14px;
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(180, 130, 45, 0.35);
   border-radius: 26px;
   pointer-events: none;
 }
@@ -39,18 +42,18 @@
   font-size: 0.88rem;
   letter-spacing: 3.5px;
   text-transform: uppercase;
-  color: var(--primary-gold-dark);
-  font-weight: 600;
+  color: var(--gold-deep-bronze);
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .invitation-main-title {
   font-family: var(--font-serif-luxury);
   font-size: 2.3rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--navy-dark);
   margin-bottom: 6px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 }
 
 .invitation-divider {
@@ -62,42 +65,45 @@
 }
 
 .divider-line {
-  width: 50px;
-  height: 1px;
-  background: var(--primary-gold);
+  width: 55px;
+  height: 1.5px;
+  background: var(--gold-deep-bronze);
 }
 
 .divider-icon {
-  color: var(--primary-gold);
-  font-size: 0.9rem;
+  color: var(--gold-deep-bronze);
+  font-size: 0.95rem;
 }
 
 .invitation-to-text {
-  color: var(--text-muted);
+  color: var(--text-subtitle);
   font-family: var(--font-sans-modern);
   font-size: 0.96rem;
+  font-weight: 500;
   margin-bottom: 8px;
 }
 
+/* Tên TRẦN TÙNG LÂM - Mực Navy đậm kết hợp Ánh Kim Đồng cao cấp */
 .graduate-name {
   font-family: var(--font-serif-luxury);
-  font-size: 2.1rem;
+  font-size: 2.15rem;
   font-weight: 800;
-  color: var(--navy-dark);
   letter-spacing: 1px;
   margin-bottom: 6px;
   position: relative;
   display: inline-block;
-  background: linear-gradient(135deg, #1E3A8A 0%, #D4AF37 55%, #1E3A8A 100%);
+  color: var(--navy-dark);
+  background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 40%, #9A6B1F 75%, #0F172A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 1.5px rgba(15, 23, 42, 0.16));
 }
 
 .graduate-major {
   font-family: var(--font-sans-modern);
   font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--primary-gold-dark);
+  font-weight: 700;
+  color: var(--gold-deep-bronze);
   margin-bottom: 28px;
   letter-spacing: 0.5px;
 }
@@ -111,8 +117,8 @@
 }
 
 .detail-item {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(180, 130, 45, 0.28);
   border-radius: 18px;
   padding: 16px 20px;
   display: flex;
@@ -131,8 +137,8 @@
   width: 46px;
   height: 46px;
   border-radius: 14px;
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--primary-gold-dark);
+  background: rgba(217, 169, 79, 0.16);
+  color: var(--gold-deep-bronze);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,14 +158,14 @@
 
 .detail-info p {
   font-family: var(--font-sans-modern);
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: var(--navy-dark);
 }
 
 .invitation-quote {
   font-family: var(--font-serif-luxury);
-  color: #475569;
+  color: #334155;
   font-size: 1rem;
   font-style: italic;
   line-height: 1.6;
@@ -167,23 +173,25 @@
 }
 
 .btn-back-intro {
-  background: none;
-  border: 1px solid rgba(30, 58, 138, 0.2);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(30, 58, 138, 0.25);
   color: var(--navy-primary);
-  padding: 11px 22px;
+  padding: 12px 24px;
   border-radius: 16px;
   font-family: var(--font-sans-modern);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.25s ease;
   margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .btn-back-intro:hover {
-  color: var(--navy-dark);
+  color: #FFFFFF;
   border-color: var(--navy-primary);
-  background: rgba(30, 58, 138, 0.06);
+  background: var(--navy-primary);
+  box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
 }
 
 @media (max-width: 480px) {
@@ -197,6 +205,6 @@
   }
 
   .graduate-name {
-    font-size: 1.75rem;
+    font-size: 1.8rem;
   }
 }

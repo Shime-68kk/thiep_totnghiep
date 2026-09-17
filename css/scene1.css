@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCENE 1: LUXURY MILK GLASS QUESTION CARD & STICKER
+   SCENE 1: LUXURY MILK GLASS QUESTION CARD (HIGH CONTRAST & GOLD SHIMMER)
    ========================================================================== */
 
 .glass-card {
@@ -13,19 +13,21 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: box-shadow 0.35s ease;
 }
 
-/* Subtle Gold Foil Top Border Accent */
+/* Metallic Bronze Foil Top Border Accent */
 .glass-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3.5px;
-  background: var(--gold-gradient);
-  opacity: 0.9;
+  height: 4px;
+  background: var(--gold-metallic-gradient);
+  opacity: 0.95;
 }
 
 /* Step container */
@@ -40,53 +42,66 @@
   display: none !important;
 }
 
-/* Luxury Capsule Badge */
+/* 1. Huy hiệu '🎓 LỜI MỜI ĐẶC BIỆT' (Visual Anchor rõ nét) */
 .badge-caps {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 18px;
+  padding: 8px 18px;
   border-radius: 9999px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  color: #8C6A15;
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  color: var(--badge-color);
   font-family: var(--font-sans-modern);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 2px 8px rgba(154, 107, 31, 0.08);
 }
 
 .badge-caps i {
-  color: var(--primary-gold-dark);
+  color: var(--badge-color);
+  font-size: 0.95rem;
 }
 
-/* Question Title */
+/* 2. Tiêu đề câu hỏi chính & Từ khóa 'Lễ Tốt Nghiệp' (Độ tương phản cao & Shimmer) */
 .question-title {
   font-family: var(--font-serif-luxury);
-  font-size: 1.65rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 800;
   line-height: 1.35;
   color: var(--navy-dark);
   margin-bottom: 12px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
 }
 
 .question-title .highlight-gold {
-  background: var(--gold-gradient);
+  color: #855710;
+  background: linear-gradient(135deg, #784E10 0%, #9A6B1F 30%, #C28E2E 50%, #9A6B1F 70%, #784E10 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
   font-weight: 800;
+  position: relative;
+  filter: drop-shadow(0 1px 1px rgba(120, 78, 16, 0.2));
+  animation: goldFoilSweep 4s ease-in-out infinite;
 }
 
+@keyframes goldFoilSweep {
+  0% { background-position: 0% center; }
+  50%, 100% { background-position: 200% center; }
+}
+
+/* 3. Đoạn mô tả phụ (Slate-600: Rõ nét, dễ đọc dưới mọi ánh sáng) */
 .question-subtitle {
   font-family: var(--font-sans-modern);
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--text-subtitle);
+  line-height: 1.62;
   max-width: 420px;
   margin-bottom: 28px;
 }
@@ -98,8 +113,8 @@
   gap: 8px;
   padding: 10px 18px;
   border-radius: 14px;
-  background: rgba(254, 226, 226, 0.75);
-  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(254, 226, 226, 0.85);
+  border: 1px solid rgba(248, 113, 113, 0.4);
   color: #991B1B;
   font-family: var(--font-sans-modern);
   font-size: 0.92rem;
@@ -143,15 +158,17 @@
   min-width: 0;
   position: relative;
   overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-/* Yes Button - Luxury Gold Foil */
+/* Nút Có: Màu vàng kim ấm áp, rực rỡ */
 .btn-yes {
-  background: var(--gold-gradient);
+  background: var(--gold-button-gradient);
   color: #1A1407;
   font-size: 0.98rem;
+  font-weight: 700;
   padding: 14px 18px;
-  box-shadow: 0 10px 24px -4px rgba(212, 175, 55, 0.45),
+  box-shadow: 0 10px 24px -4px rgba(180, 130, 45, 0.45),
               0 0 15px rgba(245, 215, 127, 0.35);
   transform-origin: center center;
   z-index: 2;
@@ -168,32 +185,33 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   transform: rotate(25deg);
   pointer-events: none;
-  animation: goldShimmer 4s infinite ease-in-out;
+  animation: goldShimmerButton 4s infinite ease-in-out;
 }
 
-@keyframes goldShimmer {
+@keyframes goldShimmerButton {
   0% { left: -60%; }
   35%, 100% { left: 160%; }
 }
 
-/* No Button - Porcelain Milk Glass */
+/* 4. Nút Không: Viền rõ ràng #CBD5E1, nền trắng sứ, chữ #334155 */
 .btn-no {
-  background: rgba(255, 255, 255, 0.75);
-  color: #475569;
-  border: 1px solid rgba(30, 58, 138, 0.15);
+  background: var(--btn-no-bg);
+  color: var(--btn-no-color);
+  border: 1.5px solid var(--btn-no-border);
   font-size: 0.94rem;
+  font-weight: 600;
   padding: 14px 14px;
   transform-origin: center center;
   z-index: 1;
   white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--btn-no-shadow);
 }
 
 .btn-no:hover {
-  background: rgba(255, 255, 255, 0.95);
-  color: #1E293B;
-  border-color: rgba(30, 58, 138, 0.25);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #94A3B8;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* ==========================================================================
@@ -223,7 +241,7 @@
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(147, 197, 253, 0.4) 0%, rgba(212, 175, 55, 0.15) 60%, transparent 80%);
+  background: radial-gradient(circle, rgba(147, 197, 253, 0.45) 0%, rgba(212, 175, 55, 0.15) 60%, transparent 80%);
   filter: blur(20px);
   z-index: -1;
 }
@@ -237,8 +255,8 @@
 }
 
 .declined-letter {
-  background: rgba(255, 253, 248, 0.92);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(255, 253, 248, 0.95);
+  border: 1px solid rgba(180, 130, 45, 0.35);
   border-radius: 20px;
   padding: 20px 22px;
   font-size: 0.94rem;
@@ -257,7 +275,7 @@
   left: 12px;
   font-family: var(--font-serif-luxury);
   font-size: 2.5rem;
-  color: rgba(212, 175, 55, 0.35);
+  color: rgba(180, 130, 45, 0.4);
   line-height: 1;
 }
 
@@ -268,13 +286,13 @@
 
 .declined-letter .highlight-wish {
   color: #B45309;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .btn-view-anyway {
-  background: rgba(255, 255, 255, 0.9);
+  background: #FFFFFF;
   color: var(--navy-primary);
-  border: 1.5px solid var(--primary-gold);
+  border: 1.5px solid var(--gold-deep-bronze);
   font-family: var(--font-sans-modern);
   font-size: 0.96rem;
   padding: 14px 26px;
@@ -284,7 +302,7 @@
   gap: 10px;
   cursor: pointer;
   font-weight: 700;
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.15);
+  box-shadow: 0 6px 20px rgba(154, 107, 31, 0.15);
   transition: all 0.3s ease;
 }
 
@@ -303,20 +321,20 @@
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: var(--gold-gradient);
+  background: var(--gold-button-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
   color: #1A1407;
   margin-bottom: 22px;
-  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+  box-shadow: 0 12px 30px rgba(180, 130, 45, 0.4);
 }
 
 .accepted-title {
   font-family: var(--font-serif-luxury);
   font-size: 1.7rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--navy-dark);
   margin-bottom: 12px;
 }
@@ -324,7 +342,8 @@
 .accepted-subtitle {
   font-family: var(--font-sans-modern);
   font-size: 0.98rem;
-  color: var(--text-muted);
+  font-weight: 500;
+  color: var(--text-subtitle);
   line-height: 1.65;
   margin-bottom: 28px;
   max-width: 420px;

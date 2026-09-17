@@ -261,3 +261,33 @@ export function animateReturnToIntro(sceneInvitation, sceneIntro, onComplete) {
     }
   });
 }
+
+/**
+ * 9. Card Depth & Hover 3D Tilt on Desktop
+ */
+export function initCard3DTilt(cardElement) {
+  const gsap = getGSAP();
+  if (!gsap || !cardElement || window.matchMedia("(pointer: coarse)").matches) return;
+
+  const rotXTo = gsap.quickTo(cardElement, "rotationX", { duration: 0.45, ease: "power2.out" });
+  const rotYTo = gsap.quickTo(cardElement, "rotationY", { duration: 0.45, ease: "power2.out" });
+
+  function handleMouseMove(e) {
+    const rect = cardElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = (e.clientX - centerX) / (window.innerWidth / 2);
+    const deltaY = (e.clientY - centerY) / (window.innerHeight / 2);
+
+    rotYTo(deltaX * 3.5); // Max ~3.5 deg
+    rotXTo(-deltaY * 3.5);
+  }
+
+  function handleMouseLeave() {
+    rotXTo(0);
+    rotYTo(0);
+  }
+
+  document.addEventListener("mousemove", handleMouseMove);
+  document.addEventListener("mouseleave", handleMouseLeave);
+}

@@ -7,16 +7,22 @@ import ConfettiCannon from "./effects/confetti.js";
 import { initStarSparkles } from "./effects/sparkles.js";
 import { Scene1Controller } from "./scenes/scene1.js";
 import { Scene2Controller } from "./scenes/scene2.js";
-import { animateCardUnfold, animateReturnToIntro } from "./effects/animations.js";
+import { animateCardUnfold, animateReturnToIntro, initCard3DTilt } from "./effects/animations.js";
 
 class GraduationApp {
   constructor() {
     this.sceneIntro = document.getElementById("scene-intro");
     this.sceneInvitation = document.getElementById("scene-invitation");
+    this.introCard = document.getElementById("intro-card");
+    this.invitationCard = document.querySelector(".invitation-card");
 
     // Initialize Effects
     this.confettiCannon = new ConfettiCannon("confetti-canvas");
-    initStarSparkles("particles-container", 35);
+    initStarSparkles("particles-container", 25);
+
+    // Initialize Card 3D Depth Tilt on Desktop
+    if (this.introCard) initCard3DTilt(this.introCard);
+    if (this.invitationCard) initCard3DTilt(this.invitationCard);
 
     // Initialize Scene Controllers
     this.scene1 = new Scene1Controller({

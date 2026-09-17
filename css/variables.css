@@ -1,46 +1,57 @@
 /* ==========================================================================
-   CSS VARIABLES & DESIGN TOKENS (LIGHT LUXURY EDITORIAL SYSTEM)
-   Art Direction: Ivory / Champagne Warm White + Royal Navy + Soft Warm Gold
+   CSS VARIABLES & DESIGN TOKENS (LIGHT LUXURY EDITORIAL SYSTEM - ENHANCED CONTRAST)
+   Art Direction: Ivory / Champagne Warm White + Deep Royal Navy + Metallic Bronze Gold
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* Brand Luxury Gold Palette */
+  /* Brand Luxury Gold & Deep Metallic Bronze (High Contrast WCAG 4.5:1+) */
+  --gold-deep-bronze: #9A6B1F;
+  --gold-amber: #A16207;
+  --gold-dark-text: #784E10;
   --primary-gold: #D4AF37;
   --primary-gold-light: #F7E7BA;
-  --primary-gold-dark: #997418;
-  --gold-gradient: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #B88924 100%);
-  --gold-gradient-soft: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
-  --gold-glow: rgba(212, 175, 55, 0.28);
-  --gold-foil-shine: linear-gradient(90deg, #D4AF37 0%, #FFF4D0 45%, #D4AF37 60%, #997418 100%);
+  
+  /* Rich Metallic Gold Gradients */
+  --gold-metallic-gradient: linear-gradient(135deg, #9A6B1F 0%, #C28E2E 45%, #784E10 100%);
+  --gold-button-gradient: linear-gradient(135deg, #F5D77F 0%, #D4AF37 45%, #B88924 100%);
+  --gold-shimmer-gradient: linear-gradient(90deg, #855710 0%, #C28E2E 35%, #FBF0CC 50%, #C28E2E 65%, #855710 100%);
 
-  /* Royal Navy & Slate */
-  --navy-primary: #1E3A8A;
+  /* Royal Navy & Slate Text System */
   --navy-dark: #0F172A;
-  --navy-light: #3B82F6;
-  --navy-soft-bg: rgba(30, 58, 138, 0.06);
+  --navy-primary: #1E3A8A;
+  --navy-slate: #1E293B;
+  --text-main: #0F172A;
+  --text-heading: #0F172A;
+  --text-subtitle: #475569;     /* Slate-600: Crystal clear contrast */
+  --text-muted: #64748B;
+  
+  /* Badge Visual Anchor Tokens */
+  --badge-bg: rgba(217, 169, 79, 0.14);
+  --badge-border: rgba(180, 130, 45, 0.35);
+  --badge-color: #8B5E14;
 
-  /* Ivory / Champagne Backgrounds */
+  /* No Button Distinct Porcelain Tokens */
+  --btn-no-bg: #FFFFFF;
+  --btn-no-border: #CBD5E1;
+  --btn-no-color: #334155;
+  --btn-no-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+
+  /* Ivory / Champagne Background Mesh */
   --bg-champagne: #FAF7F2;
   --bg-champagne-light: #FFFDF9;
-  --bg-champagne-dark: #F2ECE1;
-  --bg-mesh-1: rgba(254, 240, 199, 0.65);
-  --bg-mesh-2: rgba(224, 231, 255, 0.55);
-  --bg-mesh-3: rgba(254, 226, 226, 0.45);
+  --bg-champagne-dark: #F4EFE6;
+  --bg-mesh-1: rgba(254, 243, 199, 0.7);   /* Soft honey */
+  --bg-mesh-2: rgba(239, 246, 255, 0.65);  /* Soft sky blue */
+  --bg-mesh-3: rgba(250, 245, 255, 0.55);  /* Soft lavender */
   
-  /* Milk Glassmorphism Tokens */
-  --card-bg: rgba(255, 255, 255, 0.82);
+  /* Milk Glassmorphism Card Tokens */
+  --card-bg: rgba(255, 255, 255, 0.86);
   --card-border: rgba(255, 255, 255, 0.95);
-  --card-border-inner: rgba(212, 175, 55, 0.28);
-  --card-shadow: 0 25px 60px -15px rgba(30, 58, 138, 0.14),
-                 0 0 35px rgba(212, 175, 55, 0.12);
-  
-  /* Text & Typography Colors */
-  --text-main: #0F172A;
-  --text-heading: #1E3A8A;
-  --text-muted: #64748B;
-  --text-light: #94A3B8;
+  --card-border-inner: rgba(180, 130, 45, 0.25);
+  --card-shadow: 0 25px 60px -15px rgba(30, 58, 138, 0.13),
+                 0 4px 20px rgba(154, 107, 31, 0.08);
 
   /* Typography Families */
   --font-serif-luxury: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
