@@ -5,7 +5,7 @@
 
 const EVENT_CONFIG = {
   title: "Lễ Tốt Nghiệp - Trần Tùng Lâm 🎓✨",
-  location: "Hội trường lớn - Giảng đường trung tâm & Khuôn viên trường",
+  location: "Hội trường C2 - Đại học Bách Khoa Hà Nội",
   year: 2026,
   month: "09",
   day: "27"

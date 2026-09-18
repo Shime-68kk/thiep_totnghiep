@@ -50,6 +50,11 @@ export async function sendDiscordNotification(guestName, chosenTime) {
             inline: true
           },
           {
+            name: "📍 Địa điểm",
+            value: "Hội trường C2 - Đại học Bách Khoa Hà Nội",
+            inline: false
+          },
+          {
             name: "🕒 Thời gian gửi",
             value: timestamp,
             inline: false
