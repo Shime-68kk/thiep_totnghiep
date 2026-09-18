@@ -168,13 +168,13 @@ export function animateTransitionToAccepted(stepQuestion, stepAccepted) {
       stepQuestion.classList.add("hidden");
       stepAccepted.classList.remove("hidden");
 
-      const iconBox = stepAccepted.querySelector(".celebration-icon-box");
+      const stickerBox = stepAccepted.querySelector(".celebration-sticker-box, .celebration-icon-box");
       const textEls = stepAccepted.querySelectorAll(".accepted-title, .accepted-subtitle, .btn-open-invitation");
 
-      if (iconBox) {
-        gsap.fromTo(iconBox,
-          { scale: 0.2, rotation: -25, opacity: 0 },
-          { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(2)" }
+      if (stickerBox) {
+        gsap.fromTo(stickerBox,
+          { scale: 0.2, rotation: -15, opacity: 0 },
+          { scale: 1, rotation: 0, opacity: 1, duration: 0.65, ease: "back.out(1.8)" }
         );
       }
 
