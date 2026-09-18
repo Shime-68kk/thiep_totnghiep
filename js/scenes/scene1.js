@@ -218,14 +218,21 @@ export class Scene1Controller {
       this.confettiCannon.blast();
     }
 
-    // Asynchronously dispatch Discord Webhook notification
-    sendDiscordNotification(this.guestName, this.chosenTime);
+    // Completely non-blocking background dispatch for Discord notification
+    setTimeout(() => {
+      sendDiscordNotification(this.guestName, this.chosenTime);
+    }, 60);
 
     // 0.8s smooth transition to Scene 2
     setTimeout(() => {
       if (this.btnSubmitRsvp) this.btnSubmitRsvp.disabled = false;
       if (this.btnRsvpText) this.btnRsvpText.classList.remove("hidden");
       if (this.btnRsvpLoader) this.btnRsvpLoader.classList.add("hidden");
+
+      // Stop confetti canvas to immediately free mobile GPU for smooth card unfolding & scrolling
+      if (this.confettiCannon) {
+        this.confettiCannon.stop();
+      }
 
       this.onProceedToInvitation({
         guestName: this.guestName,

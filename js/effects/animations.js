@@ -232,7 +232,17 @@ export function animateCardUnfold(sceneIntro, sceneInvitation) {
     return;
   }
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    onComplete: () => {
+      // Clear inline transforms to release GPU compositor layers for buttery smooth 60fps scrolling on mobile
+      gsap.set([
+        sceneInvitation,
+        sceneInvitation.querySelectorAll(
+          ".invitation-card, .invitation-header-badge, .guest-banner, .invitation-to-text, .graduate-name, .graduate-major, .invitation-divider, .detail-item, .calendar-actions, .invitation-quote, .btn-back-intro"
+        )
+      ], { clearProps: "transform,opacity" });
+    }
+  });
 
   tl.to(sceneIntro, {
     scale: 0.94,

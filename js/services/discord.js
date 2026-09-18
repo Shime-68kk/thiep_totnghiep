@@ -5,6 +5,21 @@
 
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1550345469690126449/jW492IVOLjFQUUAsLb6We5KIAUJUkecnn8GcPvq9i5OxKZesSSIX2aTER_FegahHVvdN";
 
+/**
+ * Safe fetch with strict timeout to prevent mobile network hang (e.g. ISP packet drops)
+ */
+function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  return fetch(url, {
+    ...options,
+    signal: controller.signal
+  }).finally(() => {
+    clearTimeout(timeoutId);
+  });
+}
+
 export async function sendDiscordNotification(guestName, chosenTime) {
   const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
   const deviceType = isMobile ? "📱 Điện thoại (Mobile)" : "💻 Máy tính (Desktop)";
@@ -48,56 +63,56 @@ export async function sendDiscordNotification(guestName, chosenTime) {
     ]
   };
 
-  // Tier 1: Try Cloudflare Worker backend proxy (/api/rsvp) - Zero CORS
+  // Tier 1: Try Cloudflare Worker backend proxy (/api/rsvp) - Zero CORS (Timeout 2.0s)
   try {
-    const proxyResp = await fetch("/api/rsvp", {
+    const proxyResp = await fetchWithTimeout("/api/rsvp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    });
+    }, 2000);
     if (proxyResp.ok) {
       console.log("✅ Discord notification delivered via Cloudflare Worker proxy (/api/rsvp)");
       return true;
     }
   } catch (proxyErr) {
-    console.warn("Backend proxy /api/rsvp unreachable, proceeding to direct Discord delivery:", proxyErr);
+    // Graceful silent fallback without hanging the browser
   }
 
-  // Tier 2: Direct client-side JSON POST with standard CORS
+  // Tier 2: Direct client-side JSON POST with standard CORS (Timeout 2.5s)
   try {
-    const directResp = await fetch(DISCORD_WEBHOOK_URL, {
+    const directResp = await fetchWithTimeout(DISCORD_WEBHOOK_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
-    });
+    }, 2500);
     if (directResp.ok) {
       console.log("✅ Discord notification delivered directly via standard fetch");
       return true;
     }
   } catch (directErr) {
-    console.warn("Direct JSON fetch blocked by CORS or network, falling back to FormData no-cors:", directErr);
+    // Proceed to Tier 3
   }
 
   // Tier 3: FormData in mode: 'no-cors' (CORS-safelisted simple request, Discord accepts payload_json)
   try {
     const formData = new FormData();
     formData.append("payload_json", JSON.stringify(payload));
-    await fetch(DISCORD_WEBHOOK_URL, {
+    await fetchWithTimeout(DISCORD_WEBHOOK_URL, {
       method: "POST",
       mode: "no-cors",
       body: formData,
-    });
+    }, 2500);
     console.log("✅ Discord notification delivered via FormData no-cors fallback");
     return true;
   } catch (formDataErr) {
-    console.warn("FormData no-cors failed, trying navigator.sendBeacon:", formDataErr);
+    // Proceed to Tier 4
   }
 
-  // Tier 4: Background navigator.sendBeacon
+  // Tier 4: Background navigator.sendBeacon (Instant non-blocking OS network pool)
   try {
     if (typeof navigator.sendBeacon === "function") {
       const beaconData = new FormData();
@@ -109,7 +124,7 @@ export async function sendDiscordNotification(guestName, chosenTime) {
       }
     }
   } catch (beaconErr) {
-    console.error("❌ All Discord delivery strategies failed:", beaconErr);
+    console.warn("All Discord delivery strategies finished:", beaconErr);
   }
 
   return false;

@@ -247,6 +247,16 @@ html, body {
 }
 
 @media (max-width: 640px) {
+  .grain-overlay {
+    display: none !important; /* Disable heavy SVG turbulence noise filter on mobile GPUs */
+  }
+
+  .ambient-aurora {
+    filter: blur(35px);
+    -webkit-filter: blur(35px);
+    will-change: auto;
+  }
+
   .music-toggle-wrapper {
     top: 14px;
     right: 14px;
