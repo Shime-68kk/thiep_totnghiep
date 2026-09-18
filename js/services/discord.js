@@ -48,32 +48,69 @@ export async function sendDiscordNotification(guestName, chosenTime) {
     ]
   };
 
+  // Tier 1: Try Cloudflare Worker backend proxy (/api/rsvp) - Zero CORS
   try {
-    // Attempt standard JSON POST request
-    const response = await fetch(DISCORD_WEBHOOK_URL, {
+    const proxyResp = await fetch("/api/rsvp", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
-    return response.ok;
-  } catch (err) {
-    console.warn("Standard Discord webhook fetch blocked, attempting no-cors fallback:", err);
-    try {
-      // Fallback for strict browser CORS: no-cors simple request
-      await fetch(DISCORD_WEBHOOK_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain"
-        },
-        body: JSON.stringify(payload)
-      });
+    if (proxyResp.ok) {
+      console.log("✅ Discord notification delivered via Cloudflare Worker proxy (/api/rsvp)");
       return true;
-    } catch (fallbackErr) {
-      console.error("Discord notification failed completely:", fallbackErr);
-      return false;
     }
+  } catch (proxyErr) {
+    console.warn("Backend proxy /api/rsvp unreachable, proceeding to direct Discord delivery:", proxyErr);
   }
+
+  // Tier 2: Direct client-side JSON POST with standard CORS
+  try {
+    const directResp = await fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (directResp.ok) {
+      console.log("✅ Discord notification delivered directly via standard fetch");
+      return true;
+    }
+  } catch (directErr) {
+    console.warn("Direct JSON fetch blocked by CORS or network, falling back to FormData no-cors:", directErr);
+  }
+
+  // Tier 3: FormData in mode: 'no-cors' (CORS-safelisted simple request, Discord accepts payload_json)
+  try {
+    const formData = new FormData();
+    formData.append("payload_json", JSON.stringify(payload));
+    await fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData,
+    });
+    console.log("✅ Discord notification delivered via FormData no-cors fallback");
+    return true;
+  } catch (formDataErr) {
+    console.warn("FormData no-cors failed, trying navigator.sendBeacon:", formDataErr);
+  }
+
+  // Tier 4: Background navigator.sendBeacon
+  try {
+    if (typeof navigator.sendBeacon === "function") {
+      const beaconData = new FormData();
+      beaconData.append("payload_json", JSON.stringify(payload));
+      const queued = navigator.sendBeacon(DISCORD_WEBHOOK_URL, beaconData);
+      if (queued) {
+        console.log("✅ Discord notification enqueued via navigator.sendBeacon");
+        return true;
+      }
+    }
+  } catch (beaconErr) {
+    console.error("❌ All Discord delivery strategies failed:", beaconErr);
+  }
+
+  return false;
 }
