@@ -63,24 +63,7 @@ export async function sendDiscordNotification(guestName, chosenTime) {
     ]
   };
 
-  // Tier 1: Try Cloudflare Worker backend proxy (/api/rsvp) - Zero CORS (Timeout 2.0s)
-  try {
-    const proxyResp = await fetchWithTimeout("/api/rsvp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    }, 2000);
-    if (proxyResp.ok) {
-      console.log("✅ Discord notification delivered via Cloudflare Worker proxy (/api/rsvp)");
-      return true;
-    }
-  } catch (proxyErr) {
-    // Graceful silent fallback without hanging the browser
-  }
-
-  // Tier 2: Direct client-side JSON POST with standard CORS (Timeout 2.5s)
+  // Tier 1: Direct client-side JSON POST with standard CORS (Timeout 2.5s)
   try {
     const directResp = await fetchWithTimeout(DISCORD_WEBHOOK_URL, {
       method: "POST",
