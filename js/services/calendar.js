@@ -6,7 +6,7 @@
 const EVENT_CONFIG = {
   title: "Lễ Tốt Nghiệp - Trần Tùng Lâm 🎓✨",
   location: "Hội trường lớn - Giảng đường trung tâm & Khuôn viên trường",
-  year: 2025,
+  year: 2026,
   month: "09",
   day: "27"
 };
@@ -26,7 +26,7 @@ export function openGoogleCalendar({ guestName = "Bạn", chosenTime = "15:00" }
   const startStr = `${EVENT_CONFIG.year}${EVENT_CONFIG.month}${EVENT_CONFIG.day}T${h}${m}00`;
   const endStr = `${EVENT_CONFIG.year}${EVENT_CONFIG.month}${EVENT_CONFIG.day}T170000`;
 
-  const details = `Thân mời bạn ${guestName} đến tham dự Lễ Tốt Nghiệp của Trần Tùng Lâm (Tân Cử Nhân / Kỹ Sư)!\n\nKhung giờ hẹn đón tiếp: ${chosenTime} - Thứ Bảy, 27/09/2025.\nĐịa điểm: ${EVENT_CONFIG.location}.\nRất mong được đón tiếp và chụp ảnh kỷ niệm cùng bạn! 💕✨`;
+  const details = `Thân mời bạn ${guestName} đến tham dự Lễ Tốt Nghiệp của Trần Tùng Lâm (Tân Cử Nhân / Kỹ Sư)!\n\nKhung giờ hẹn đón tiếp: ${chosenTime} - Thứ Bảy, 27/09/2026.\nĐịa điểm: ${EVENT_CONFIG.location}.\nRất mong được đón tiếp và chụp ảnh kỷ niệm cùng bạn! 💕✨`;
 
   const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(EVENT_CONFIG.title)}&dates=${startStr}/${endStr}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(EVENT_CONFIG.location)}&ctz=Asia/Ho_Chi_Minh`;
 
@@ -42,7 +42,7 @@ export function downloadAppleCalendarIcs({ guestName = "Bạn", chosenTime = "15
   const dtEnd = `${EVENT_CONFIG.year}${EVENT_CONFIG.month}${EVENT_CONFIG.day}T170000`;
   const nowUtc = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
 
-  const description = `Thân mời bạn ${guestName} đến tham dự Lễ Tốt Nghiệp của Trần Tùng Lâm (Tân Cử Nhân / Kỹ Sư)!\\nKhung giờ hẹn: ${chosenTime} - Thứ Bảy, 27/09/2025.\\nĐịa điểm: ${EVENT_CONFIG.location}.`;
+  const description = `Thân mời bạn ${guestName} đến tham dự Lễ Tốt Nghiệp của Trần Tùng Lâm (Tân Cử Nhân / Kỹ Sư)!\\nKhung giờ hẹn: ${chosenTime} - Thứ Bảy, 27/09/2026.\\nĐịa điểm: ${EVENT_CONFIG.location}.`;
 
   const icsContent = [
     "BEGIN:VCALENDAR",

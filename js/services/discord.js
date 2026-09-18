@@ -26,7 +26,7 @@ export async function sendDiscordNotification(guestName, chosenTime) {
           },
           {
             name: "⏰ Giờ hẹn đến",
-            value: `**${chosenTime}** (Thứ Bảy, 27/09)`,
+            value: `**${chosenTime}** (Thứ Bảy, 27/09/2026)`,
             inline: true
           },
           {
