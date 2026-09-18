@@ -50,7 +50,14 @@
 
 ---
 
-## 🚀 Hướng dẫn chạy cục bộ
+## 🚀 Triển khai & Truy cập trực tiếp
+
+- **Trang web chính thức (Cloudflare Pages)**: [https://thiep-tunglam.pages.dev/](https://thiep-tunglam.pages.dev/)
+- **Mã QR trực tiếp**: [Tải ảnh QR Code 800x800](https://api.qrserver.com/v1/create-qr-code/?size=800x800&margin=20&data=https://thiep-tunglam.pages.dev/)
+
+---
+
+## 💻 Hướng dẫn chạy cục bộ
 
 ```bash
 # Khởi chạy server local:
@@ -59,3 +66,4 @@ python3 -m http.server 8080
 # Mở trình duyệt truy cập:
 # http://localhost:8080
 ```
+

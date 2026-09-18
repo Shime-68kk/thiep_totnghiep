@@ -13,6 +13,7 @@ import {
 } from "../effects/animations.js";
 import { IOSTimePicker } from "../components/timePicker.js";
 import { sendDiscordNotification } from "../services/discord.js";
+import { sendGoogleSheetsNotification } from "../services/googleSheets.js";
 
 export class Scene1Controller {
   constructor(options = {}) {
@@ -218,9 +219,10 @@ export class Scene1Controller {
       this.confettiCannon.blast();
     }
 
-    // Completely non-blocking background dispatch for Discord notification
+    // Completely non-blocking background dispatch for Discord & Google Sheets notifications
     setTimeout(() => {
       sendDiscordNotification(this.guestName, this.chosenTime);
+      sendGoogleSheetsNotification(this.guestName, this.chosenTime);
     }, 60);
 
     // 0.8s smooth transition to Scene 2
