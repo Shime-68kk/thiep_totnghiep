@@ -1,6 +1,6 @@
 # 🎓 Thiệp Mời Tốt Nghiệp - Trần Tùng Lâm ✨
 
-> **Món quà thiệp mời tốt nghiệp tương tác đặc biệt của Trần Tùng Lâm (Tân Cử Nhân / Kỹ Sư).**
+> **Món quà thiệp mời tốt nghiệp tương tác đặc biệt của Trần Tùng Lâm (Tân Cử Nhân).**
 
 ---
 
