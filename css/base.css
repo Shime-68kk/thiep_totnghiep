@@ -90,15 +90,22 @@ html, body {
   100% { transform: translate(45px, -25px) scale(1.06); }
 }
 
-/* Floating Audio Player Button */
-.music-toggle-btn {
+/* Floating Audio Player Button & Tooltip */
+.music-toggle-wrapper {
   position: fixed;
-  top: 22px;
-  right: 22px;
-  width: 46px;
-  height: 46px;
+  top: 20px;
+  right: 20px;
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.music-toggle-btn {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1.5px solid rgba(197, 160, 89, 0.45);
@@ -108,13 +115,14 @@ html, body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 990;
+  touch-action: manipulation;
   color: var(--gold-deep-bronze);
   font-size: 1.25rem;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.3s ease,
               background-color 0.3s ease;
   outline: none;
+  position: relative;
 }
 
 .music-toggle-btn:hover {
@@ -131,6 +139,61 @@ html, body {
 .music-toggle-btn.playing .disc-icon {
   animation: spinVinyl 5s linear infinite;
   color: var(--navy-primary);
+}
+
+/* Sound Wave Bars when music is playing */
+.sound-wave {
+  display: none;
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  border-radius: 999px;
+  padding: 3px 5px;
+  gap: 2px;
+  align-items: flex-end;
+  height: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.music-toggle-btn.playing .sound-wave {
+  display: inline-flex;
+}
+
+.wave-bar {
+  width: 2.5px;
+  background: var(--navy-primary);
+  border-radius: 2px;
+  animation: soundWaveAnim 0.75s ease-in-out infinite alternate;
+}
+
+.wave-bar:nth-child(1) { height: 4px; animation-delay: 0.1s; }
+.wave-bar:nth-child(2) { height: 10px; animation-delay: 0.3s; }
+.wave-bar:nth-child(3) { height: 6px; animation-delay: 0.2s; }
+
+@keyframes soundWaveAnim {
+  0% { height: 3px; }
+  100% { height: 11px; }
+}
+
+/* Music Tooltip */
+.music-tooltip {
+  margin-top: 6px;
+  font-family: var(--font-sans-modern);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: var(--navy-dark);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
 }
 
 @keyframes spinVinyl {
@@ -178,6 +241,24 @@ html, body {
   max-width: 520px;
 }
 
-.scene.hidden {
+/* Universal Hidden Utility */
+.hidden {
   display: none !important;
+}
+
+@media (max-width: 640px) {
+  .music-toggle-wrapper {
+    top: 14px;
+    right: 14px;
+  }
+  .music-toggle-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
+  }
+  .music-tooltip {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    margin-top: 4px;
+  }
 }

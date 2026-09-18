@@ -189,7 +189,40 @@ export function animateTransitionToAccepted(stepQuestion, stepAccepted) {
 }
 
 /**
- * 7. Scene 1 ➔ Scene 2 Morphing & Card Unfolding
+ * 7. Transition to Step RSVP Form
+ */
+export function animateTransitionToRSVP(fromStep, stepRsvp, onComplete) {
+  const gsap = getGSAP();
+  if (!gsap || !fromStep || !stepRsvp) {
+    if (fromStep) fromStep.classList.add("hidden");
+    if (stepRsvp) stepRsvp.classList.remove("hidden");
+    if (onComplete) onComplete();
+    return;
+  }
+
+  gsap.to(fromStep, {
+    opacity: 0,
+    y: -15,
+    scale: 0.95,
+    duration: 0.25,
+    ease: "power2.in",
+    onComplete: () => {
+      fromStep.classList.add("hidden");
+      stepRsvp.classList.remove("hidden");
+
+      const els = stepRsvp.querySelectorAll(".badge-caps, .rsvp-title, .rsvp-subtitle, .form-group, .btn-submit-rsvp");
+      gsap.fromTo(els,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, stagger: 0.08, duration: 0.45, ease: "power3.out" }
+      );
+
+      if (onComplete) onComplete();
+    }
+  });
+}
+
+/**
+ * 8. Scene 1 ➔ Scene 2 Morphing & Card Unfolding
  */
 export function animateCardUnfold(sceneIntro, sceneInvitation) {
   const gsap = getGSAP();
@@ -205,7 +238,7 @@ export function animateCardUnfold(sceneIntro, sceneInvitation) {
     scale: 0.94,
     y: -22,
     opacity: 0,
-    duration: 0.4,
+    duration: 0.35,
     ease: "power2.inOut",
     onComplete: () => {
       sceneIntro.classList.add("hidden");
@@ -216,7 +249,7 @@ export function animateCardUnfold(sceneIntro, sceneInvitation) {
     { scale: 0.9, opacity: 0, y: 30 },
     { scale: 1, opacity: 1, y: 0, duration: 0.65, ease: "back.out(1.2)" }
   )
-  .from(sceneInvitation.querySelectorAll(".invitation-header-badge, .invitation-main-title, .invitation-divider, .invitation-to-text, .graduate-name, .graduate-major"), {
+  .from(sceneInvitation.querySelectorAll(".invitation-header-badge, .guest-banner, .invitation-to-text, .graduate-name, .graduate-major, .invitation-divider"), {
     opacity: 0,
     y: 15,
     stagger: 0.08,
@@ -226,13 +259,14 @@ export function animateCardUnfold(sceneIntro, sceneInvitation) {
   .from(sceneInvitation.querySelectorAll(".detail-item"), {
     opacity: 0,
     y: 25,
-    stagger: 0.12,
-    duration: 0.55,
+    stagger: 0.1,
+    duration: 0.5,
     ease: "power3.out"
   }, "-=0.2")
-  .from(sceneInvitation.querySelectorAll(".invitation-quote, .btn-back-intro"), {
+  .from(sceneInvitation.querySelectorAll(".calendar-actions, .invitation-quote, .btn-back-intro"), {
     opacity: 0,
     y: 15,
+    stagger: 0.08,
     duration: 0.4,
     ease: "power2.out"
   }, "-=0.1");

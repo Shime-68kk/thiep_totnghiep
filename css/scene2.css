@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCENE 2: LUXURY EDITORIAL GRADUATION CARD (HIGH CONTRAST & CARD DEPTH)
+   SCENE 2: LUXURY EDITORIAL GRADUATION CARD (CÁ NHÂN HÓA & LỊCH ĐIỆN THOẠI)
    ========================================================================== */
 
 #scene-invitation {
@@ -12,13 +12,12 @@
   -webkit-backdrop-filter: blur(30px);
   border: 1.5px solid var(--gold-deep-bronze);
   border-radius: 36px;
-  padding: 44px 34px;
+  padding: 44px 32px;
   text-align: center;
   box-shadow: 0 30px 70px -15px rgba(30, 58, 138, 0.18),
               0 0 40px rgba(154, 107, 31, 0.12);
   position: relative;
   overflow: hidden;
-  transform-style: preserve-3d;
   will-change: transform, box-shadow;
   transition: box-shadow 0.35s ease;
 }
@@ -44,52 +43,58 @@
   text-transform: uppercase;
   color: var(--gold-deep-bronze);
   font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Personalized Guest Banner */
+.guest-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-.invitation-main-title {
-  font-family: var(--font-serif-luxury);
-  font-size: 2.3rem;
+.guest-label {
+  font-family: var(--font-sans-modern);
+  font-size: 0.85rem;
   font-weight: 800;
-  color: var(--navy-dark);
-  margin-bottom: 6px;
+  color: #64748B;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.guest-name-highlight {
+  font-family: var(--font-serif-luxury);
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #855710;
+  background: linear-gradient(135deg, #784E10 0%, #9A6B1F 30%, #C28E2E 50%, #9A6B1F 70%, #784E10 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.invitation-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 18px auto 26px;
-}
-
-.divider-line {
-  width: 55px;
-  height: 1.5px;
-  background: var(--gold-deep-bronze);
-}
-
-.divider-icon {
-  color: var(--gold-deep-bronze);
-  font-size: 0.95rem;
+  line-height: 1.25;
+  filter: drop-shadow(0 1px 1.5px rgba(120, 78, 16, 0.2));
+  animation: goldFoilSweep 4s ease-in-out infinite;
 }
 
 .invitation-to-text {
   color: var(--text-subtitle);
   font-family: var(--font-sans-modern);
-  font-size: 0.96rem;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: 0.94rem;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
-/* Tên TRẦN TÙNG LÂM - Mực Navy đậm kết hợp Ánh Kim Đồng cao cấp */
+/* Host Name: TRẦN TÙNG LÂM */
 .graduate-name {
   font-family: var(--font-serif-luxury);
-  font-size: 2.15rem;
+  font-size: 2.2rem;
   font-weight: 800;
   letter-spacing: 1px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   position: relative;
   display: inline-block;
   color: var(--navy-dark);
@@ -104,26 +109,45 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--gold-deep-bronze);
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   letter-spacing: 0.5px;
+}
+
+.invitation-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px auto 24px;
+}
+
+.divider-line {
+  width: 55px;
+  height: 1.5px;
+  background: var(--gold-deep-bronze);
+}
+
+.divider-icon {
+  color: var(--gold-deep-bronze);
+  font-size: 0.95rem;
 }
 
 .details-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 24px;
   text-align: left;
 }
 
 .detail-item {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(180, 130, 45, 0.28);
   border-radius: 18px;
-  padding: 16px 20px;
+  padding: 15px 18px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -133,43 +157,107 @@
   box-shadow: 0 8px 20px rgba(30, 58, 138, 0.08);
 }
 
+.detail-item.highlight-time-item {
+  border: 1.5px solid rgba(194, 142, 46, 0.55);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(254, 249, 195, 0.4) 100%);
+  box-shadow: 0 6px 18px rgba(180, 130, 45, 0.12);
+}
+
 .detail-icon {
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: 14px;
   background: rgba(217, 169, 79, 0.16);
   color: var(--gold-deep-bronze);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
 .detail-info h4 {
   font-family: var(--font-sans-modern);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: var(--text-muted);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   font-weight: 600;
 }
 
 .detail-info p {
   font-family: var(--font-sans-modern);
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   font-weight: 700;
   color: var(--navy-dark);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   ADD TO CALENDAR ACTION BUTTONS
+   ========================================================================== */
+.calendar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 22px;
+}
+
+.btn-calendar {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  font-family: var(--font-sans-modern);
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 13px 18px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.btn-cal-google {
+  background: #FFFFFF;
+  color: #1E3A8A;
+  border: 1.5px solid rgba(30, 58, 138, 0.3);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.08);
+}
+
+.btn-cal-google:hover {
+  background: #EFF6FF;
+  border-color: #1E3A8A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(30, 58, 138, 0.16);
+}
+
+.btn-cal-apple {
+  background: #FFFFFF;
+  color: #0F172A;
+  border: 1.5px solid rgba(15, 23, 42, 0.25);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.btn-cal-apple:hover {
+  background: #F8FAFC;
+  border-color: #0F172A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
 }
 
 .invitation-quote {
   font-family: var(--font-serif-luxury);
   color: #334155;
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-style: italic;
   line-height: 1.6;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 
 .btn-back-intro {
@@ -182,8 +270,8 @@
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
+  touch-action: manipulation;
   transition: all 0.25s ease;
-  margin-top: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
@@ -194,17 +282,26 @@
   box-shadow: 0 6px 16px rgba(30, 58, 138, 0.2);
 }
 
-@media (max-width: 480px) {
+@media (min-width: 481px) {
+  .calendar-actions {
+    flex-direction: row;
+  }
+  .btn-calendar {
+    flex: 1;
+  }
+}
+
+@media (max-width: 640px) {
   .invitation-card {
     padding: 34px 20px;
     border-radius: 28px;
   }
 
-  .invitation-main-title {
-    font-size: 1.9rem;
+  .guest-name-highlight {
+    font-size: 1.8rem;
   }
 
   .graduate-name {
-    font-size: 1.8rem;
+    font-size: 1.85rem;
   }
 }

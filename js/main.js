@@ -33,7 +33,7 @@ class GraduationApp {
     this.scene1 = new Scene1Controller({
       confettiCannon: this.confettiCannon,
       audioManager: this.audioManager,
-      onProceedToInvitation: () => this.showSceneInvitation()
+      onProceedToInvitation: (data) => this.showSceneInvitation(data)
     });
 
     this.scene2 = new Scene2Controller({
@@ -46,8 +46,9 @@ class GraduationApp {
     }
   }
 
-  showSceneInvitation() {
+  showSceneInvitation(data = {}) {
     if (!this.sceneIntro || !this.sceneInvitation) return;
+    this.scene2.updateData(data);
     animateCardUnfold(this.sceneIntro, this.sceneInvitation);
   }
 
@@ -73,9 +74,16 @@ class GraduationApp {
     } else if (testState === "accepted") {
       if (this.scene1.stepQuestion) this.scene1.stepQuestion.classList.add("hidden");
       if (this.scene1.stepAccepted) this.scene1.stepAccepted.classList.remove("hidden");
+    } else if (testState === "rsvp") {
+      if (this.scene1.stepQuestion) this.scene1.stepQuestion.classList.add("hidden");
+      if (this.scene1.stepRsvp) this.scene1.stepRsvp.classList.remove("hidden");
     } else if (testState === "invitation") {
       if (this.sceneIntro) this.sceneIntro.classList.add("hidden");
       if (this.sceneInvitation) {
+        this.scene2.updateData({
+          guestName: urlParams.get("name") || "BẠN THÂN YÊU",
+          chosenTime: urlParams.get("time") || "15:30"
+        });
         this.sceneInvitation.classList.remove("hidden");
         this.sceneInvitation.style.opacity = "1";
         this.sceneInvitation.style.transform = "none";

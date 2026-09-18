@@ -1,5 +1,5 @@
 /**
- * Scene 1: Interactive Question & Refusal Handler (Enhanced with GSAP Motion)
+ * Scene 1: Interactive Question & Refusal Handler with RSVP & iOS Time Picker
  */
 
 import {
@@ -8,8 +8,11 @@ import {
   animateHintText,
   animateTransitionToDeclined,
   triggerShockwave,
-  animateTransitionToAccepted
+  animateTransitionToAccepted,
+  animateTransitionToRSVP
 } from "../effects/animations.js";
+import { IOSTimePicker } from "../components/timePicker.js";
+import { sendDiscordNotification } from "../services/discord.js";
 
 export class Scene1Controller {
   constructor(options = {}) {
@@ -17,22 +20,34 @@ export class Scene1Controller {
     this.confettiCannon = options.confettiCannon || null;
     this.audioManager = options.audioManager || null;
 
-    // DOM References
+    // DOM References - Steps
     this.stepQuestion = document.getElementById("step-question");
     this.stepDeclined = document.getElementById("step-declined");
     this.stepAccepted = document.getElementById("step-accepted");
+    this.stepRsvp = document.getElementById("step-rsvp");
     this.stickerBox = document.querySelector(".sticker-box");
     this.hintBadge = document.getElementById("hint-text");
     this.hintMessage = document.getElementById("hint-message");
 
+    // DOM References - Buttons
     this.btnYes = document.getElementById("btn-yes");
     this.btnNo = document.getElementById("btn-no");
     this.btnViewAnyway = document.getElementById("btn-view-anyway");
     this.btnOpenInvitation = document.getElementById("btn-open-invitation");
 
+    // DOM References - RSVP Form
+    this.guestNameInput = document.getElementById("guest-name-input");
+    this.guestInputWrapper = document.getElementById("guest-input-wrapper");
+    this.nameErrorMsg = document.getElementById("name-error-msg");
+    this.btnSubmitRsvp = document.getElementById("btn-submit-rsvp");
+    this.btnRsvpText = this.btnSubmitRsvp ? this.btnSubmitRsvp.querySelector(".btn-rsvp-text") : null;
+    this.btnRsvpLoader = document.getElementById("rsvp-loader");
+
     // State
     this.rejectCount = 0;
     this.maxRejects = 3;
+    this.guestName = "";
+    this.chosenTime = "15:00";
 
     // Scale mappings
     this.yesScales = [1.0, 1.16, 1.32];
@@ -44,6 +59,16 @@ export class Scene1Controller {
       "Năn nỉ lần nữa đó nha, bớt chút thời gian đến chung vui chụp cùng mình kiểu ảnh nha? 🥺🎓"
     ];
 
+    // Initialize iOS Time Picker
+    this.timePicker = new IOSTimePicker({
+      container: document.getElementById("ios-time-picker"),
+      initialHour: 15,
+      initialMinute: 0,
+      onTimeChange: (t) => {
+        this.chosenTime = t.formatted;
+      }
+    });
+
     this.bindEvents();
     this.initMagneticPhysics();
   }
@@ -53,15 +78,14 @@ export class Scene1Controller {
     initMagneticButton(this.btnNo, 0.25);
     initMagneticButton(this.btnViewAnyway, 0.3);
     initMagneticButton(this.btnOpenInvitation, 0.35);
+    initMagneticButton(this.btnSubmitRsvp, 0.25);
   }
 
   triggerHaptic(pattern = 50) {
     if (navigator.vibrate) {
       try {
         navigator.vibrate(pattern);
-      } catch (e) {
-        // Silently ignore if blocked
-      }
+      } catch (e) {}
     }
   }
 
@@ -89,19 +113,39 @@ export class Scene1Controller {
       });
     }
 
-    // Transition from Declined screen to Invitation
+    // Transition from Declined screen to RSVP form
     if (this.btnViewAnyway) {
       this.btnViewAnyway.addEventListener("click", () => {
         this.triggerHaptic(40);
-        this.onProceedToInvitation();
+        animateTransitionToRSVP(this.stepDeclined, this.stepRsvp, () => {
+          if (this.guestNameInput) this.guestNameInput.focus();
+        });
       });
     }
 
-    // Transition from Accepted screen to Invitation
+    // Transition from Accepted screen to RSVP form
     if (this.btnOpenInvitation) {
       this.btnOpenInvitation.addEventListener("click", () => {
         this.triggerHaptic(50);
-        this.onProceedToInvitation();
+        animateTransitionToRSVP(this.stepAccepted, this.stepRsvp, () => {
+          if (this.guestNameInput) this.guestNameInput.focus();
+        });
+      });
+    }
+
+    // Handle RSVP Form Submission
+    if (this.btnSubmitRsvp) {
+      this.btnSubmitRsvp.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.handleRsvpSubmit();
+      });
+    }
+
+    // Clear error on input
+    if (this.guestNameInput) {
+      this.guestNameInput.addEventListener("input", () => {
+        if (this.guestInputWrapper) this.guestInputWrapper.classList.remove("has-error");
+        if (this.nameErrorMsg) this.nameErrorMsg.classList.add("hidden");
       });
     }
   }
@@ -148,6 +192,48 @@ export class Scene1Controller {
     animateTransitionToAccepted(this.stepQuestion, this.stepAccepted);
   }
 
+  handleRsvpSubmit() {
+    const rawName = this.guestNameInput ? this.guestNameInput.value.trim() : "";
+    if (!rawName) {
+      this.triggerHaptic([100, 50, 100]);
+      if (this.guestInputWrapper) this.guestInputWrapper.classList.add("has-error");
+      if (this.nameErrorMsg) this.nameErrorMsg.classList.remove("hidden");
+      if (this.guestNameInput) this.guestNameInput.focus();
+      return;
+    }
+
+    this.guestName = rawName;
+    const timeObj = this.timePicker ? this.timePicker.getTime() : { formatted: "15:00" };
+    this.chosenTime = timeObj.formatted;
+
+    // Loading State
+    if (this.btnSubmitRsvp) this.btnSubmitRsvp.disabled = true;
+    if (this.btnRsvpText) this.btnRsvpText.classList.add("hidden");
+    if (this.btnRsvpLoader) this.btnRsvpLoader.classList.remove("hidden");
+
+    this.triggerHaptic(60);
+
+    // Blast celebratory confetti on form submission
+    if (this.confettiCannon) {
+      this.confettiCannon.blast();
+    }
+
+    // Asynchronously dispatch Discord Webhook notification
+    sendDiscordNotification(this.guestName, this.chosenTime);
+
+    // 0.8s smooth transition to Scene 2
+    setTimeout(() => {
+      if (this.btnSubmitRsvp) this.btnSubmitRsvp.disabled = false;
+      if (this.btnRsvpText) this.btnRsvpText.classList.remove("hidden");
+      if (this.btnRsvpLoader) this.btnRsvpLoader.classList.add("hidden");
+
+      this.onProceedToInvitation({
+        guestName: this.guestName,
+        chosenTime: this.chosenTime
+      });
+    }, 800);
+  }
+
   reset() {
     this.rejectCount = 0;
     if (window.gsap) {
@@ -160,6 +246,7 @@ export class Scene1Controller {
     if (this.hintBadge) this.hintBadge.classList.add("hidden");
     if (this.stepDeclined) this.stepDeclined.classList.add("hidden");
     if (this.stepAccepted) this.stepAccepted.classList.add("hidden");
+    if (this.stepRsvp) this.stepRsvp.classList.add("hidden");
     if (this.stepQuestion) {
       this.stepQuestion.classList.remove("hidden");
       if (window.gsap) window.gsap.set(this.stepQuestion, { opacity: 1, y: 0, scale: 1 });

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
   <!-- Modular Design System Styles -->
-  <link rel="stylesheet" href="css/main.css?v=2.2" />
+  <link rel="stylesheet" href="css/main.css?v=2.3" />
 
   <!-- GSAP Core from Local Repository -->
   <script src="js/vendor/gsap.min.js"></script>
@@ -24,11 +24,18 @@
   <div class="ambient-aurora ambient-aurora-2"></div>
   <div class="ambient-aurora ambient-aurora-3"></div>
 
-  <!-- Floating Audio Player Button -->
-  <button class="music-toggle-btn" id="btn-music-toggle" title="Bật/Tắt nhạc nền" aria-label="Bật tắt nhạc nền">
-    <i class="fa-solid fa-compact-disc disc-icon"></i>
-    <span class="music-wave"></span>
-  </button>
+  <!-- Floating Audio Player Button with Tooltip & Sound Waves -->
+  <div class="music-toggle-wrapper">
+    <button class="music-toggle-btn" id="btn-music-toggle" title="Bật/Tắt nhạc nền" aria-label="Bật tắt nhạc nền">
+      <i class="fa-solid fa-compact-disc disc-icon"></i>
+      <div class="sound-wave">
+        <span class="wave-bar"></span>
+        <span class="wave-bar"></span>
+        <span class="wave-bar"></span>
+      </div>
+    </button>
+    <span class="music-tooltip" id="music-tooltip">Bật nhạc 🎵</span>
+  </div>
   <audio id="bgm-audio" src="assets/audio/bgm.mp3" loop preload="auto"></audio>
 
   <!-- Confetti Canvas -->
@@ -37,7 +44,7 @@
   <main class="app-container">
     
     <!-- ===================================================================
-         SCENE 1: INTERACTIVE QUESTION MODAL (Cảnh 1: Lời Mời Tương Tác)
+         SCENE 1: INTERACTIVE QUESTION MODAL & RSVP
          =================================================================== -->
     <section class="scene" id="scene-intro">
       <div class="glass-card" id="intro-card">
@@ -63,7 +70,7 @@
             <span id="hint-message"></span>
           </div>
 
-          <!-- 2 Nút Lựa Chọn (Không còn icon tick đen, hỗ trợ xếp dọc trên mobile) -->
+          <!-- 2 Nút Lựa Chọn -->
           <div class="options-wrapper">
             <button class="btn-choice btn-yes" id="btn-yes">
               <span>Có, mình muốn! 🥰🎓</span>
@@ -120,40 +127,109 @@
           </button>
         </div>
 
+        <!-- STEP 4: RSVP FORM & BÁNH XE GIỜ IOS (CÁ NHÂN HÓA) -->
+        <div class="step-container hidden" id="step-rsvp">
+          <div class="badge-caps">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+            <span>Xác nhận tham dự</span>
+          </div>
+
+          <h2 class="rsvp-title">
+            Một chút thông tin để Lâm đón tiếp bạn chu đáo nhé! 💕
+          </h2>
+
+          <p class="rsvp-subtitle">
+            Hãy để lại tên và khung giờ bạn dự kiến ghé qua chung vui cùng mình nha!
+          </p>
+
+          <form class="rsvp-form" id="rsvp-form" onsubmit="return false;">
+            <!-- Input Tên khách mời -->
+            <div class="form-group">
+              <label class="form-label" for="guest-name-input">
+                <i class="fa-solid fa-heart form-label-icon"></i> Tên của bạn là gì nè?
+              </label>
+              <div class="input-pill-wrapper" id="guest-input-wrapper">
+                <i class="fa-solid fa-user-tag input-pill-icon"></i>
+                <input 
+                  type="text" 
+                  id="guest-name-input" 
+                  class="input-pill" 
+                  placeholder="Nhập tên hoặc biệt danh của bạn..." 
+                  maxlength="50" 
+                  autocomplete="name"
+                  required 
+                />
+              </div>
+              <span class="input-error-msg hidden" id="name-error-msg">Vui lòng nhập tên hoặc biệt danh của bạn nhé! 💕</span>
+            </div>
+
+            <!-- Bánh xe cuộn giờ iOS -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fa-regular fa-clock form-label-icon"></i> Dự kiến bạn ghé lúc mấy giờ? (14h - 17h)
+              </label>
+              
+              <!-- Container Bánh Xe iOS -->
+              <div id="ios-time-picker" class="ios-time-picker-container"></div>
+            </div>
+
+            <!-- Nút Hoàn tất & Mở thiệp chính thức -->
+            <button type="submit" class="btn-submit-rsvp" id="btn-submit-rsvp">
+              <span class="btn-rsvp-text">Hoàn tất & Mở thiệp chính thức 💌✨</span>
+              <span class="btn-rsvp-loader hidden" id="rsvp-loader">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Đang chuẩn bị thiệp...
+              </span>
+            </button>
+          </form>
+        </div>
+
       </div>
     </section>
 
     <!-- ===================================================================
-         SCENE 2: FORMAL GRADUATION INVITATION CARD (Cảnh 2: Thiệp chính thức)
+         SCENE 2: FORMAL GRADUATION INVITATION CARD (Cá nhân hóa)
          =================================================================== -->
     <section class="scene hidden" id="scene-invitation">
       <div class="invitation-card">
-        <span class="invitation-header-badge">✦ GRADUATION CEREMONY ✦</span>
-        <h2 class="invitation-main-title">THIỆP MỜI TỐT NGHIỆP</h2>
+        <span class="invitation-header-badge">✦ TRÂN TRỌNG KÍNH MỜI ✦</span>
         
+        <!-- Personalized Guest Name Banner -->
+        <div class="guest-banner">
+          <span class="guest-label">BẠN:</span>
+          <h2 class="guest-name-highlight" id="invitation-guest-name">BẠN THÂN YÊU</h2>
+        </div>
+
+        <p class="invitation-to-text">Đến tham dự lễ tốt nghiệp của:</p>
+        <h3 class="graduate-name">TRẦN TÙNG LÂM</h3>
+        <p class="graduate-major">Tân Cử Nhân / Kỹ Sư 🎓</p>
+
         <div class="invitation-divider">
           <span class="divider-line"></span>
           <i class="fa-solid fa-graduation-cap divider-icon"></i>
           <span class="divider-line"></span>
         </div>
 
-        <p class="invitation-to-text">Trân trọng kính mời bạn đến tham dự lễ tốt nghiệp của:</p>
-        <h3 class="graduate-name">TRẦN TÙNG LÂM</h3>
-        <p class="graduate-major">Tân Cử Nhân / Kỹ Sư 🎓</p>
-
         <div class="details-grid">
           <div class="detail-item">
             <div class="detail-icon"><i class="fa-regular fa-calendar-check"></i></div>
             <div class="detail-info">
-              <h4>Thời gian</h4>
-              <p>08:30 - Thứ Bảy, Ngày 18 Tháng 10</p>
+              <h4>Thời gian tổ chức</h4>
+              <p>Thứ Bảy, Ngày 27 Tháng 09</p>
+            </div>
+          </div>
+
+          <div class="detail-item highlight-time-item">
+            <div class="detail-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="detail-info">
+              <h4>Khung giờ hẹn đón bạn</h4>
+              <p><strong id="invitation-chosen-time">15:00</strong> - Bạn hẹn đến tầm giờ này đúng hông? Rất mong được đón bạn! 💕</p>
             </div>
           </div>
 
           <div class="detail-item">
             <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
             <div class="detail-info">
-              <h4>Địa điểm</h4>
+              <h4>Địa điểm buổi lễ</h4>
               <p>Hội trường lớn - Giảng đường trung tâm</p>
             </div>
           </div>
@@ -162,9 +238,21 @@
             <div class="detail-icon"><i class="fa-solid fa-camera-retro"></i></div>
             <div class="detail-info">
               <h4>Chụp ảnh lưu niệm</h4>
-              <p>Khuôn viên trường & Backdrop tốt nghiệp</p>
+              <p>Khuôn viên trường & Backdrop tốt nghiệp (14:00 - 17:00)</p>
             </div>
           </div>
+        </div>
+
+        <!-- Add to Calendar Action Buttons -->
+        <div class="calendar-actions">
+          <button class="btn-calendar btn-cal-google" id="btn-add-google-cal" title="Thêm sự kiện vào Google Calendar">
+            <i class="fa-brands fa-google"></i>
+            <span>Thêm vào Google Calendar</span>
+          </button>
+          <button class="btn-calendar btn-cal-apple" id="btn-add-apple-cal" title="Tải file lịch .ics cho Apple Calendar">
+            <i class="fa-brands fa-apple"></i>
+            <span>Tải lịch Apple Calendar (.ics)</span>
+          </button>
         </div>
 
         <p class="invitation-quote">
@@ -172,7 +260,7 @@
         </p>
 
         <button class="btn-back-intro" id="btn-back-intro">
-          <i class="fa-solid fa-rotate-left"></i> Trở về màn hình tương tác
+          <i class="fa-solid fa-rotate-left"></i> Chỉnh sửa thông tin hẹn
         </button>
       </div>
     </section>
@@ -180,6 +268,6 @@
   </main>
 
   <!-- Modular Application Entry Point -->
-  <script type="module" src="js/main.js?v=2.2"></script>
+  <script type="module" src="js/main.js?v=2.3"></script>
 </body>
 </html>
