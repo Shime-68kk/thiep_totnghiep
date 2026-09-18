@@ -4,10 +4,15 @@
  */
 
 import ConfettiCannon from "./effects/confetti.js";
-import { initStarSparkles } from "./effects/sparkles.js";
+import { AudioManager } from "./effects/audio.js";
 import { Scene1Controller } from "./scenes/scene1.js";
 import { Scene2Controller } from "./scenes/scene2.js";
-import { animateCardUnfold, animateReturnToIntro, initCard3DTilt } from "./effects/animations.js";
+import { 
+  animateCardUnfold, 
+  animateReturnToIntro, 
+  initCard3DTilt,
+  animatePageEntrance 
+} from "./effects/animations.js";
 
 class GraduationApp {
   constructor() {
@@ -16,9 +21,9 @@ class GraduationApp {
     this.introCard = document.getElementById("intro-card");
     this.invitationCard = document.querySelector(".invitation-card");
 
-    // Initialize Effects
+    // Initialize Audio & Confetti
     this.confettiCannon = new ConfettiCannon("confetti-canvas");
-    initStarSparkles("particles-container", 25);
+    this.audioManager = new AudioManager("btn-music-toggle", "bgm-audio");
 
     // Initialize Card 3D Depth Tilt on Desktop
     if (this.introCard) initCard3DTilt(this.introCard);
@@ -34,7 +39,10 @@ class GraduationApp {
       onBackToIntro: () => this.showSceneIntro()
     });
 
-    this.handleQueryParams();
+    const isCustomState = this.handleQueryParams();
+    if (!isCustomState && this.introCard) {
+      animatePageEntrance(this.introCard);
+    }
   }
 
   showSceneInvitation() {
@@ -72,6 +80,7 @@ class GraduationApp {
         this.sceneInvitation.style.transform = "none";
       }
     }
+    return !!testState;
   }
 }
 

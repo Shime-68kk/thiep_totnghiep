@@ -291,3 +291,23 @@ export function initCard3DTilt(cardElement) {
   document.addEventListener("mousemove", handleMouseMove);
   document.addEventListener("mouseleave", handleMouseLeave);
 }
+
+/**
+ * 10. Initial Page Entrance Animation
+ */
+export function animatePageEntrance(introCard) {
+  const gsap = getGSAP();
+  if (!gsap || !introCard) return;
+
+  gsap.fromTo(introCard,
+    { y: 28, opacity: 0, scale: 0.96 },
+    {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      duration: 0.65,
+      ease: "power3.out",
+      clearProps: "opacity,transform"
+    }
+  );
+}

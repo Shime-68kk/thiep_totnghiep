@@ -1,33 +1,23 @@
 /* ==========================================================================
-   SCENE 1: LUXURY MILK GLASS QUESTION CARD (HIGH CONTRAST & GOLD SHIMMER)
+   SCENE 1: LUXURY MILK GLASS QUESTION CARD (FULL GOLD FOIL BORDER & RESPONSIVE)
    ========================================================================== */
 
 .glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
-  border: 1px solid var(--card-border);
+  border: 1.5px solid rgba(197, 160, 89, 0.45);
   border-radius: 32px;
-  box-shadow: var(--card-shadow);
-  padding: 38px 28px;
+  box-shadow: 0 20px 45px -15px rgba(30, 58, 138, 0.08), 
+              0 0 0 1px rgba(255, 255, 255, 0.85) inset,
+              0 0 25px rgba(212, 175, 55, 0.1);
+  padding: 40px 30px;
   text-align: center;
   position: relative;
   overflow: hidden;
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
   transition: box-shadow 0.35s ease;
-}
-
-/* Metallic Bronze Foil Top Border Accent */
-.glass-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gold-metallic-gradient);
-  opacity: 0.95;
 }
 
 /* Step container */
@@ -47,7 +37,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 18px;
+  padding: 8px 20px;
   border-radius: 9999px;
   background: var(--badge-bg);
   border: 1px solid var(--badge-border);
@@ -57,7 +47,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   box-shadow: 0 2px 8px rgba(154, 107, 31, 0.08);
 }
 
@@ -66,14 +56,14 @@
   font-size: 0.95rem;
 }
 
-/* 2. Tiêu đề câu hỏi chính & Từ khóa 'Lễ Tốt Nghiệp' (Độ tương phản cao & Shimmer) */
+/* 2. Tiêu đề câu hỏi chính & Từ khóa 'Lễ Tốt Nghiệp' */
 .question-title {
   font-family: var(--font-serif-luxury);
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   font-weight: 800;
-  line-height: 1.35;
+  line-height: 1.38;
   color: var(--navy-dark);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   letter-spacing: -0.2px;
 }
 
@@ -95,7 +85,7 @@
   50%, 100% { background-position: 200% center; }
 }
 
-/* 3. Đoạn mô tả phụ (Slate-600: Rõ nét, dễ đọc dưới mọi ánh sáng) */
+/* 3. Đoạn mô tả phụ (Slate-600) */
 .question-subtitle {
   font-family: var(--font-sans-modern);
   font-size: 0.96rem;
@@ -103,7 +93,7 @@
   color: var(--text-subtitle);
   line-height: 1.62;
   max-width: 420px;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 /* Dynamic Reaction / Hint Text */
@@ -111,7 +101,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 14px;
   background: rgba(254, 226, 226, 0.85);
   border: 1px solid rgba(248, 113, 113, 0.4);
@@ -128,7 +118,7 @@
   display: none !important;
 }
 
-/* Buttons Area */
+/* Buttons Area: Desktop side-by-side */
 .options-wrapper {
   display: flex;
   align-items: center;
@@ -136,7 +126,7 @@
   gap: 14px;
   width: 100%;
   position: relative;
-  min-height: 64px;
+  min-height: 56px;
   margin-top: 6px;
 }
 
@@ -167,7 +157,7 @@
   color: #1A1407;
   font-size: 0.98rem;
   font-weight: 700;
-  padding: 14px 18px;
+  padding: 15px 20px;
   box-shadow: 0 10px 24px -4px rgba(180, 130, 45, 0.45),
               0 0 15px rgba(245, 215, 127, 0.35);
   transform-origin: center center;
@@ -193,14 +183,14 @@
   35%, 100% { left: 160%; }
 }
 
-/* 4. Nút Không: Viền rõ ràng #CBD5E1, nền trắng sứ, chữ #334155 */
+/* Nút Không: Viền rõ ràng #CBD5E1, nền trắng sứ, chữ #334155 */
 .btn-no {
   background: var(--btn-no-bg);
   color: var(--btn-no-color);
   border: 1.5px solid var(--btn-no-border);
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  padding: 14px 14px;
+  padding: 15px 18px;
   transform-origin: center center;
   z-index: 1;
   white-space: nowrap;
@@ -248,7 +238,7 @@
 
 .declined-title {
   font-family: var(--font-serif-luxury);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--navy-dark);
   margin-bottom: 12px;
@@ -258,7 +248,7 @@
   background: rgba(255, 253, 248, 0.95);
   border: 1px solid rgba(180, 130, 45, 0.35);
   border-radius: 20px;
-  padding: 20px 22px;
+  padding: 22px 24px;
   font-size: 0.94rem;
   line-height: 1.7;
   color: #334155;
@@ -333,7 +323,7 @@
 
 .accepted-title {
   font-family: var(--font-serif-luxury);
-  font-size: 1.7rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--navy-dark);
   margin-bottom: 12px;
@@ -372,36 +362,45 @@
   transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+/* ==========================================================================
+   RESPONSIVE LAYOUT (Mobile Smartphone Optimization - Zero Text Overflow)
+   ========================================================================== */
 @media (max-width: 480px) {
   .glass-card {
-    padding: 30px 18px;
-    border-radius: 26px;
+    padding: 34px 20px;
+    border-radius: 28px;
   }
 
   .question-title {
-    font-size: 1.45rem;
+    font-size: 1.5rem;
   }
 
   .question-subtitle {
     font-size: 0.92rem;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 
+  /* Switch buttons to vertical stack on Mobile: ZERO OVERFLOW */
   .options-wrapper {
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn-choice {
+    width: 100%;
+    flex: none;
   }
 
   .btn-yes {
-    font-size: 0.88rem;
-    padding: 13px 8px;
-    gap: 5px;
+    font-size: 1.02rem;
+    padding: 16px 20px;
+    box-shadow: 0 8px 20px -4px rgba(180, 130, 45, 0.45);
   }
 
   .btn-no {
-    font-size: 0.85rem;
-    padding: 13px 8px;
-    gap: 5px;
+    font-size: 0.96rem;
+    padding: 14px 20px;
   }
 
   .sticker-box {
@@ -411,11 +410,19 @@
   }
 
   .declined-title {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
   }
 
   .declined-letter {
     font-size: 0.88rem;
-    padding: 16px 16px;
+    padding: 18px 18px;
+  }
+
+  .music-toggle-btn {
+    top: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
   }
 }

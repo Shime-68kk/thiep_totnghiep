@@ -19,13 +19,17 @@
   <!-- Subtle Organic Noise Texture -->
   <div class="grain-overlay"></div>
 
-  <!-- Organic Ambient Aurora Mesh Blobs -->
+  <!-- Ambient Blurred Pastel Aurora Mesh Blobs -->
   <div class="ambient-aurora ambient-aurora-1"></div>
   <div class="ambient-aurora ambient-aurora-2"></div>
   <div class="ambient-aurora ambient-aurora-3"></div>
 
-  <!-- Star sparkles background -->
-  <div class="particles-container" id="particles-container"></div>
+  <!-- Floating Audio Player Button -->
+  <button class="music-toggle-btn" id="btn-music-toggle" title="Bật/Tắt nhạc nền" aria-label="Bật tắt nhạc nền">
+    <i class="fa-solid fa-compact-disc disc-icon"></i>
+    <span class="music-wave"></span>
+  </button>
+  <audio id="bgm-audio" src="assets/audio/bgm.mp3" loop preload="auto"></audio>
 
   <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
@@ -59,14 +63,12 @@
             <span id="hint-message"></span>
           </div>
 
-          <!-- 2 Nút Lựa Chọn -->
+          <!-- 2 Nút Lựa Chọn (Không còn icon tick đen, hỗ trợ xếp dọc trên mobile) -->
           <div class="options-wrapper">
             <button class="btn-choice btn-yes" id="btn-yes">
-              <i class="fa-solid fa-circle-check"></i>
               <span>Có, mình muốn! 🥰🎓</span>
             </button>
             <button class="btn-choice btn-no" id="btn-no">
-              <i class="fa-solid fa-circle-xmark"></i>
               <span>Không, mình bận rồi 🥺</span>
             </button>
           </div>
