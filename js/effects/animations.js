@@ -50,14 +50,16 @@ export function animateDeclineButton(btnNo, btnYes, currentNoScale, targetYesSca
     ],
     scale: currentNoScale,
     duration: 0.48,
-    ease: "elastic.out(1, 0.3)"
+    ease: "elastic.out(1, 0.3)",
+    overwrite: "auto"
   });
 
   // Pulse & scale 'Có'
   gsap.to(btnYes, {
     scale: targetYesScale,
     duration: 0.4,
-    ease: "back.out(2)"
+    ease: "back.out(2)",
+    overwrite: "auto"
   });
 }
 
@@ -71,7 +73,7 @@ export function animateHintText(hintBadge) {
   hintBadge.classList.remove("hidden");
   gsap.fromTo(hintBadge,
     { opacity: 0, y: 15, filter: "blur(4px)" },
-    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }
+    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out", overwrite: "auto" }
   );
 }
 
@@ -80,44 +82,47 @@ export function animateHintText(hintBadge) {
  */
 export function animateTransitionToDeclined(stepQuestion, stepDeclined, stickerBox) {
   const gsap = getGSAP();
-  if (!gsap) {
+  if (!gsap || !stepQuestion || !stepDeclined) {
     if (stepQuestion) stepQuestion.classList.add("hidden");
     if (stepDeclined) stepDeclined.classList.remove("hidden");
     return;
   }
 
-  const tl = gsap.timeline();
-
-  tl.to(stepQuestion, {
+  gsap.to(stepQuestion, {
     y: -20,
     opacity: 0,
     scale: 0.95,
-    duration: 0.35,
+    duration: 0.25,
     ease: "power2.in",
     onComplete: () => {
       stepQuestion.classList.add("hidden");
       stepDeclined.classList.remove("hidden");
-    }
-  })
-  .fromTo(stickerBox,
-    { scale: 0.3, opacity: 0, y: 35 },
-    { scale: 1, opacity: 1, y: 0, duration: 0.75, ease: "back.out(1.7)" }
-  )
-  .from(stepDeclined.querySelectorAll(".declined-title, .declined-letter, .btn-view-anyway"), {
-    opacity: 0,
-    y: 18,
-    stagger: 0.12,
-    duration: 0.55,
-    ease: "power3.out"
-  }, "-=0.35");
 
-  // Eternal subtle floating for the sticker
-  gsap.to(stickerBox, {
-    y: "-=8px",
-    duration: 2.2,
-    ease: "sine.inOut",
-    repeat: -1,
-    yoyo: true
+      if (stickerBox) {
+        gsap.fromTo(stickerBox,
+          { scale: 0.3, opacity: 0, y: 30 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.65, ease: "back.out(1.7)",
+            onComplete: () => {
+              gsap.to(stickerBox, {
+                y: "-=8px",
+                duration: 2.2,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true
+              });
+            }
+          }
+        );
+      }
+
+      const els = stepDeclined.querySelectorAll(".declined-title, .declined-letter, .btn-view-anyway");
+      if (els.length > 0) {
+        gsap.fromTo(els,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: "power3.out" }
+        );
+      }
+    }
   });
 }
 
@@ -148,38 +153,39 @@ export function triggerShockwave(x, y) {
  */
 export function animateTransitionToAccepted(stepQuestion, stepAccepted) {
   const gsap = getGSAP();
-  if (!gsap) {
+  if (!gsap || !stepQuestion || !stepAccepted) {
     if (stepQuestion) stepQuestion.classList.add("hidden");
     if (stepAccepted) stepAccepted.classList.remove("hidden");
     return;
   }
 
-  const tl = gsap.timeline();
-
-  tl.to(stepQuestion, {
+  gsap.to(stepQuestion, {
     scale: 0.92,
     opacity: 0,
-    duration: 0.3,
+    duration: 0.25,
     ease: "power2.in",
     onComplete: () => {
       stepQuestion.classList.add("hidden");
       stepAccepted.classList.remove("hidden");
+
+      const iconBox = stepAccepted.querySelector(".celebration-icon-box");
+      const textEls = stepAccepted.querySelectorAll(".accepted-title, .accepted-subtitle, .btn-open-invitation");
+
+      if (iconBox) {
+        gsap.fromTo(iconBox,
+          { scale: 0.2, rotation: -25, opacity: 0 },
+          { scale: 1, rotation: 0, opacity: 1, duration: 0.6, ease: "back.out(2)" }
+        );
+      }
+
+      if (textEls.length > 0) {
+        gsap.fromTo(textEls,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, stagger: 0.1, duration: 0.5, ease: "power3.out" }
+        );
+      }
     }
-  })
-  .from(stepAccepted.querySelector(".celebration-icon-box"), {
-    scale: 0.2,
-    rotation: -25,
-    opacity: 0,
-    duration: 0.65,
-    ease: "back.out(2)"
-  })
-  .from(stepAccepted.querySelectorAll(".accepted-title, .accepted-subtitle, .btn-open-invitation"), {
-    opacity: 0,
-    y: 20,
-    stagger: 0.1,
-    duration: 0.55,
-    ease: "power3.out"
-  }, "-=0.35");
+  });
 }
 
 /**

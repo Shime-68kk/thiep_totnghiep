@@ -161,7 +161,7 @@ html, body {
   transform: translate(-50%, -50%) scale(0);
 }
 
-/* App Main Container with 3D Perspective */
+/* App Main Container */
 .app-container {
   position: relative;
   z-index: 2;
@@ -170,14 +170,12 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 32px 18px;
-  perspective: 1200px;
 }
 
 /* Base Scene Wrapper */
 .scene {
   width: 100%;
   max-width: 520px;
-  transform-style: preserve-3d;
 }
 
 .scene.hidden {

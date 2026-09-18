@@ -32,6 +32,7 @@ class GraduationApp {
     // Initialize Scene Controllers
     this.scene1 = new Scene1Controller({
       confettiCannon: this.confettiCannon,
+      audioManager: this.audioManager,
       onProceedToInvitation: () => this.showSceneInvitation()
     });
 

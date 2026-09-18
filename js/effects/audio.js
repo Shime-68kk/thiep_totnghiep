@@ -20,21 +20,8 @@ export class AudioManager {
 
     // Toggle on button click
     this.btn.addEventListener("click", (e) => {
-      e.stopPropagation();
       this.togglePlay();
     });
-
-    // Handle user gesture autoplay on first interaction
-    const enableAudioOnFirstTouch = () => {
-      if (!this.isPlaying && !this.userManuallyPaused) {
-        this.play();
-      }
-      document.removeEventListener("pointerdown", enableAudioOnFirstTouch);
-      document.removeEventListener("keydown", enableAudioOnFirstTouch);
-    };
-
-    document.addEventListener("pointerdown", enableAudioOnFirstTouch);
-    document.addEventListener("keydown", enableAudioOnFirstTouch);
 
     // Sync state with audio events
     this.audio.addEventListener("play", () => {

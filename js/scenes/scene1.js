@@ -15,6 +15,7 @@ export class Scene1Controller {
   constructor(options = {}) {
     this.onProceedToInvitation = options.onProceedToInvitation || (() => {});
     this.confettiCannon = options.confettiCannon || null;
+    this.audioManager = options.audioManager || null;
 
     // DOM References
     this.stepQuestion = document.getElementById("step-question");
@@ -67,8 +68,10 @@ export class Scene1Controller {
   bindEvents() {
     // Handle 'Không' button click
     if (this.btnNo) {
-      this.btnNo.addEventListener("click", (e) => {
-        e.stopPropagation();
+      this.btnNo.addEventListener("click", () => {
+        if (this.audioManager && !this.audioManager.isPlaying && !this.audioManager.userManuallyPaused) {
+          this.audioManager.play();
+        }
         this.handleDecline();
       });
     }
@@ -76,7 +79,9 @@ export class Scene1Controller {
     // Handle 'Có' button click
     if (this.btnYes) {
       this.btnYes.addEventListener("click", (e) => {
-        e.stopPropagation();
+        if (this.audioManager && !this.audioManager.isPlaying && !this.audioManager.userManuallyPaused) {
+          this.audioManager.play();
+        }
         const rect = this.btnYes.getBoundingClientRect();
         const clickX = e.clientX || (rect.left + rect.width / 2);
         const clickY = e.clientY || (rect.top + rect.height / 2);
